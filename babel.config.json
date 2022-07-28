@@ -1,0 +1,33 @@
+{
+    "presets": [
+        "@babel/preset-env"
+    ],
+    "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        [
+            "babel-plugin-dotenv",
+            {
+                "replacedModuleName": "babel-dotenv"
+            }
+        ],
+        "transform-export-extensions",
+        "closure-elimination",
+        [
+            "@babel/plugin-transform-runtime",
+            {
+                "regenerator": true
+            }
+        ],
+        [
+            "console-source",
+            {
+                "segments": 2
+            }
+        ]
+    ],
+    "comments": false,
+    "ignore": [
+        "node_modules",
+        "build"
+    ]
+}

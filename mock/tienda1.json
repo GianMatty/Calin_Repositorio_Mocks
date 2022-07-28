@@ -1,0 +1,44 @@
+[
+    {
+      "id": "00001",
+      "name": "leche gloria chico",
+      "img": "imagen de leche",
+      "value": 2.00,
+      "currency": "s/"
+    },
+    {
+      "id": "00002",
+      "name": "gaseosa inkacola 3 Litros",
+      "img": "imagen de gaseosa",
+      "value": 11.50,
+      "currency": "s/"
+    },
+    {
+      "id": "00003",
+      "name": "aceite primor 1 litro",
+      "img": "imagen de aceite",
+      "value": 13.00,
+      "currency": "s/"
+    },
+    {
+      "id": "00004",
+      "name": "galleta oreo grande",
+      "img": "imagen de oreo",
+      "value": 2.00,
+      "currency": "s/"
+    },
+    {
+      "id": "00005",
+      "name": "fideos tallarin don victorio",
+      "img": "imagen de fideos",
+      "value": 5.60,
+      "currency": "s/"
+    },
+    {
+      "id": "00006",
+      "name": "mermelada",
+      "img": "imagen de mermelada",
+      "value": 1.50,
+      "currency": "s/"
+    }
+  ]
