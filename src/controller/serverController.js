@@ -3,6 +3,7 @@ const guardasaved = require("../../mock/guarda_gigassaved.json");
 const login_rem = require("../../mock/login_rem.json");
 const listarbancoperu = require("../../mock/listarbancoperu.json");
 const productos = require("../../mock/tienda1.json");
+const productos2 = require("../../mock/tienda2.json");
 const path = require("path");
 const XLSX = require("xlsx");
 
@@ -27,6 +28,10 @@ const serverController = {
   // =============== MIO ====================
   productos: (_require, response) => {
     const dataProductos = parse();
+    response.json(dataProductos);
+  },
+  productos2: (_require, response) => {
+    const dataProductos = productos2;
     response.json(dataProductos);
   },
 

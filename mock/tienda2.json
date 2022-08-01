@@ -1,0 +1,42 @@
+
+[
+  {
+    "category": "ABARROTES",
+    "data": [
+      {
+        "subcategory": "Fideos",
+        "products": [{"name": "tallarin don victorio", "value": 5.60}, {"name": "fideos codito", "value": 1.20}]
+      },
+      {
+        "subcategory": "Atunes",
+        "products": [{"name": "florida filete", "value": 6}, {"name": "atun AZ", "value": 3.50}]
+      }
+    ] 
+  },
+  {
+    "category": "DULCES",
+    "data": [
+      {
+        "subcategory": "Galletas",
+        "products": [{"name": "rellenitas", "value": 0.50}, {"name": "tentacion", "value": "0.70"}]
+      },
+      {
+        "subcategory": "Chocolates",
+        "products": [{"name": "princesa", "value": "1.50"}, {"name": "cañonazo", "value": "0.80"}]
+      }
+    ] 
+  },
+  {
+    "category": "BEBIDAS",
+    "data": [
+      {
+        "subcategory": "Gaseosas",
+        "products": [{"name": "pepsi jumbo", "value": 2.50}, {"name": "pepsi chico", "value": "1.80"}]
+      },
+      {
+        "subcategory": "Yogurt",
+        "products": [{"name": "gloria chico", "value": "1.50"}, {"name": "gloria 1/2 litro", "value": "3.50"}]
+      }
+    ] 
+  }
+]
