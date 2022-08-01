@@ -9,26 +9,27 @@ const XLSX = require("xlsx");
 
 
 const parse = () => {
-  const excelData = XLSX.readFile(path.join(__dirname, "../data/tienda360.xlsx"));
-  const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
-      name,
-      data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
-  }))
-
-  return parseExcelData[0].data;
-
+    const excelData = XLSX.readFile(path.join(__dirname, "../dat/tienda360.xlsx"));
+    const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
+        name,
+        data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
+    }))
+  
+    return parseExcelData[0].data;
 }
 
 
 
 const serverController = {
 
-
-  
   // =============== MIO ====================
   productos: (_require, response) => {
-    const dataProductos = parse();
-    response.json(dataProductos);
+    try {
+      const dataProductos = parse();
+      response.json(dataProductos);
+    } catch (error) {
+      response.json(error);
+    }
   },
   productos2: (_require, response) => {
     const dataProductos = productos2;
