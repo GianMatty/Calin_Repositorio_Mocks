@@ -8,18 +8,8 @@ const path = require("path");
 const XLSX = require("xlsx");
 
 
-// const parse = () => {
-//     const excelData = XLSX.readFile(__dirname + "/ienda360.xlsx");
-//     const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
-//         name,
-//         data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
-//     }))
-  
-//     return parseExcelData[0].data;
-// }
 const parse = () => {
-    // const excelData = XLSX.readFile(path.join(__dirname, "../data/tienda360.xlsx"));
-    const excelData = XLSX.readFile(path.join(process.cwd() + "../data/tienda360.xlsx"));
+    const excelData = XLSX.readFile(path.join(process.cwd() + "/tienda360.xlsx"));
     const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
         name,
         data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
@@ -27,6 +17,16 @@ const parse = () => {
   
     return parseExcelData[0].data;
 }
+// const parse = () => {
+//     // const excelData = XLSX.readFile(path.join(__dirname, "../data/tienda360.xlsx"));
+//     const excelData = XLSX.readFile(path.join(process.cwd() + "../data/tienda360.xlsx"));
+//     const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
+//         name,
+//         data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
+//     }))
+  
+//     return parseExcelData[0].data;
+// }
 
 
 
