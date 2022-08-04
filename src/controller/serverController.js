@@ -4,6 +4,7 @@ const login_rem = require("../../mock/login_rem.json");
 const listarbancoperu = require("../../mock/listarbancoperu.json");
 const productos = require("../../mock/tienda1.json");
 const productos2 = require("../../mock/tienda2.json");
+const productos3 = require("../../mock/tienda3.json");
 const path = require("path");
 const XLSX = require("xlsx");
 
@@ -44,6 +45,11 @@ const serverController = {
   },
   productos2: (_require, response) => {
     const dataProductos = productos2;
+    response.json(dataProductos);
+  },
+
+  productos3: (_require, response) => {
+    const dataProductos = productos3;
     response.json(dataProductos);
   },
 
