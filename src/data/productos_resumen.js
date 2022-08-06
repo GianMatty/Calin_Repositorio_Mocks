@@ -1,0 +1,45 @@
+[DULCES, BEBIDAS, ASEO PERSONAL]
+[ Galletas, Chocolates, Dulces, Gaseosas, Mineral, Frugos, Jabones, Shampoos]
+DULCES
+    GALLETAS
+    CHOCOLATES
+    DULCES
+    CEREALES
+    SNACKS
+BEBIDAS
+    GASEOSAS
+    MINERAL
+    FRUGOS
+VERDURAS
+ASEO PERSONAL
+    JABONES
+    SHAMPOOS
+    CREMAS
+    PAPELES
+    AFEITADORES
+    TOALLAS HIGIENICAS
+    CREMA DENTAL
+    PAÑOS HUMEDOS
+ASEO LIMPIEZA
+    ENFUEGUE
+    DETERGENTE
+    LEGIA
+ABARROTES
+    FIDEOS
+    ACEITES
+    LEGUMBRES
+    ARROZ
+    AZUCAR
+    ATUNES
+    (cafe,milo,etc)
+    COMIDA DE ANIMAL
+    BOLSAS Y PLASTICOS
+    OTROS (mantequilla, mermelada, etc)
+PAÑALES
+CONDIMENTOS (maggy, canela etc)
+MEDICINAS
+LIBRERIA
+UTILITARIOS(corta uña encendedor,etc)
+ROPA
+REGALOS
+        

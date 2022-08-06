@@ -3,9 +3,10 @@ const { serverController }  = require("../controller/serverController");
 
 const api = express.Router();
 
-api.get("/productos", serverController.productos);
-api.get("/productos_array", serverController.productos2);
-api.get("/productos_json", serverController.productos3);
+api.get("/productos_exel1", serverController.productos_exel1);
+api.get("/productos_exel2", serverController.productos_exel2);
+api.get("/productos_array", serverController.productos_array);
+api.get("/productos_json", serverController.productos_json);
 
 api.get("/guarda_saved", serverController.guarda_saved);
 api.get("/guarda_error", serverController.guarda_error);
