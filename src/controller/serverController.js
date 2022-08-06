@@ -78,13 +78,13 @@ const serverController = {
 
 
 const parse = () => {
-  const excelData = XLSX.readFile(path.join(process.cwd() + "/src/data/tienda360_2.xlsx")); 
+  const excelData = XLSX.readFile(path.join(process.cwd() + "/src/data/tienda360_3.xlsx")); 
   const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
       name,
       data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
   }))
 
-  return parseExcelData[1].data;
+  return parseExcelData[2].data;
 }
 // const parse = () => {
 //     // const excelData = XLSX.readFile(path.join(__dirname, "../data/tienda360.xlsx"));
@@ -98,13 +98,13 @@ const parse = () => {
 // }
 
 const parseExel2 = () => {
-  const excelData = XLSX.readFile(path.join(process.cwd() + "/src/data/tienda360.xlsx"));
+  const excelData = XLSX.readFile(path.join(process.cwd() + "/src/data/tienda360_3.xlsx"));
   const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
       name,
       data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
   }))
 
-  console.log(parseExcelData[0].data);
+  // console.log(parseExcelData[0].data);
 
   const data1 = ["dulces", "bebidas", "aseo personal"]
   const data2 = [ "galletas", "chocolates", "dulces", "gaseosas", "mineral", "frugos", "jabones", "shampoos"]
@@ -138,9 +138,33 @@ const parseExel2 = () => {
     };
   })
 
-  console.log("yuju", data4)
+  const data5 = parseExcelData[0].data
+  const subcategory_name = data5.map( (data) => data.subcategory)
+  const subcategory1 = subcategory_name.filter( (data, i) => subcategory_name.indexOf(data) === i );
+  console.log(subcategory_name)
+  console.log(subcategory1)
+  const data6 = data5.map( (data) => {
+    return { 
+      subcategory: data.subcategory,
+      products: data5.filter((product) => data.subcategory === product.subcategory)
+                      .map((product) => {
+                        return {
+                          subcategory: product.subcategory,
+                          id: product.id,
+                          name: product.name,
+                          value: product.value,
+                        }
+                      })
+      }
+    })
 
 
+  // return {
+  //   subcategory: product.subcategory,
+  //   id: product.id,
+  //   name: product.name,
+  //   value: product.value,
+  // }
   const tienda1 = {
     "result": [
       {
@@ -187,7 +211,7 @@ const parseExel2 = () => {
   
 
   // return tienda1;
-  return data4;
+  return data6;
   // return parseExcelData[0].data;
 }
 

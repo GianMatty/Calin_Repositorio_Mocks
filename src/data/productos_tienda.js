@@ -69,10 +69,10 @@ DULCES
         tortis sin picante      1.00
 BEBIDAS
     GASEOSAS 
-        kr chico            1.50
-        kr 1 litro          
-        kr 2 litro
-        kr 3 litro  
+        kr chico                1.50
+        kr 1 litro                       
+        kr 2 litro              
+        kr 3 litro             
         inkacola chico          2.50 
         inkacola 1 litro        3.50
         inkacola 2 litro        6.50
