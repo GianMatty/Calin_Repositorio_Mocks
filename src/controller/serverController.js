@@ -84,6 +84,16 @@ const parse = () => {
       data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
   }))
 
+const categories = parseExcelData.map( res => res.data.map( res => res.category )).join(',').split(',');
+const subcategories = parseExcelData.map( res => res.data.map( res => res.subcategory )).join(',').split(',');;
+
+const categoriesFilter = categories.filter( (data, i) => categories.indexOf(data) === i );
+const subcategoriesFilter = subcategories.filter( (data, i) => subcategories.indexOf(data) === i );
+
+
+console.log(categoriesFilter)
+console.log(subcategoriesFilter)
+
   return parseExcelData[2].data;
 }
 // const parse = () => {
@@ -106,65 +116,55 @@ const parseExel2 = () => {
 
   // console.log(parseExcelData[0].data);
 
-  const data1 = ["dulces", "bebidas", "aseo personal"]
-  const data2 = [ "galletas", "chocolates", "dulces", "gaseosas", "mineral", "frugos", "jabones", "shampoos"]
 
-  const data3 = [
-    {
-      category_name: "dulces",
-      subcategories: ["galletas", "chocolates", "dulces"]
-    },
-    {
-      category_name: "bebidas",
-      subcategories: ["gaseosas", "mineral", "frugos"]
-    },
-    {
-      category_name: "aseo personal",
-      subcategories: ["jabones", "shampoos"]
-    }
-  ]
 
-  const data4 = data3.map( (data) => {
-    return { 
-      category: data.category_name,
-      data: [
-        data.subcategories.map((info) => {
-          return { 
-           subcategory: info,
-           products: []
-          }
-        }) 
-      ]
-    };
+  // const data4 = data3.map( (data) => {
+  //   return { 
+  //     category: data.category_name,
+  //     data: [
+  //       data.subcategories.map((info) => {
+  //         return { 
+  //          subcategory: info,
+  //          products: []
+  //         }
+  //       }) 
+  //     ]
+  //   };
+  // })
+
+  let array1 = [];
+  let array2 = [];
+
+  const dulces = parseExcelData[0].data
+  const data10 = parseExcelData.map( (response) => {
+    response.data.reduce( (acc, data) => {
+      return acc = acc.push(data.category)
+      // {
+      //   category: array1.push(data.category),
+      //   subcategory: array2.push(data.subcategory),
+      // }
+    })
+    
   })
+  console.log(data10);
 
-  const data5 = parseExcelData[0].data
-  const subcategory_name = data5.map( (data) => data.subcategory)
-  const subcategory1 = subcategory_name.filter( (data, i) => subcategory_name.indexOf(data) === i );
-  console.log(subcategory_name)
-  console.log(subcategory1)
-  const data6 = data5.map( (data) => {
-    return { 
-      subcategory: data.subcategory,
-      products: data5.filter((product) => data.subcategory === product.subcategory)
-                      .map((product) => {
+  const dulcesData = dulces.map( (data) => data.subcategory)
+  const dulcesSubcategories = dulcesData.filter( (data, i) => dulcesData.indexOf(data) === i );
+
+  const dulcesParse = dulcesSubcategories.map( (data) => {
+    return {
+      subcategory: data,
+      products: dulces.filter( (response) => data === response.subcategory )
+                      .map( (response) => {
                         return {
-                          subcategory: product.subcategory,
-                          id: product.id,
-                          name: product.name,
-                          value: product.value,
+                          id: response.id,
+                          name: response.name,
+                          value: response.value,
                         }
                       })
-      }
-    })
-
-
-  // return {
-  //   subcategory: product.subcategory,
-  //   id: product.id,
-  //   name: product.name,
-  //   value: product.value,
-  // }
+    }
+  })
+  
   const tienda1 = {
     "result": [
       {
@@ -210,9 +210,7 @@ const parseExel2 = () => {
   }
   
 
-  // return tienda1;
-  return data6;
-  // return parseExcelData[0].data;
+  return dulcesParse;
 }
 
 
