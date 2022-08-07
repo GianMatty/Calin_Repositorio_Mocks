@@ -179,13 +179,13 @@ const tienda2Function = (excelPath) => {
 
 const tienda360Function = (excelPath) => {
 
-  // const excelPath = "/src/data/tienda360_final.xlsx";
   const excelData = extraerInfoExcel(excelPath);
 
   // Nota: extraemos las categorias
   const categories = excelData.map( res => res.data.map( res => res.category )).join(',').split(',');
-  const categoriesFilter = categories.filter( (data, i) => categories.indexOf(data) === i );
-  
+  const categoriesFilter = categories.filter( (data, i) => categories.indexOf(data) === i )
+                                    .filter( (e) => e !== '' );
+  console.log(categoriesFilter);
   // Nota: unimos las diferentes pestañas de exel en un solo arreglo
   const tienda360 = excelData.map( (response) => response.data)
                                   .reduce( (acc, data) => acc.concat(data));
