@@ -30,7 +30,10 @@ const serverController = {
     try {
       const exelPath = "/src/data/tienda360.xlsx";
       const dataProductos = tienda2Function(exelPath);
-      response.json(dataProductos);
+      const data = {
+        result: dataProductos, 
+      }
+      response.json(data);
     } catch (error) {
       response.json(error);
     }
