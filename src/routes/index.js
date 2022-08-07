@@ -3,8 +3,8 @@ const { serverController }  = require("../controller/serverController");
 
 const api = express.Router();
 
-api.get("/productos_exel1", serverController.productos_exel1);
-api.get("/productos_exel2", serverController.productos_exel2);
+api.get("/productos_exel_final", serverController.productos_exel_final);
+api.get("/productos_exel_alternativo", serverController.productos_exel_alternativo);
 api.get("/productos_array", serverController.productos_array);
 api.get("/productos_json", serverController.productos_json);
 

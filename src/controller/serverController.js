@@ -4,7 +4,6 @@ const login_rem = require("../../mock/login_rem.json");
 const listarbancoperu = require("../../mock/listarbancoperu.json");
 const tienda_array = require("../../mock/tienda_array.json");
 const tienda_json = require("../../mock/tienda_json.json");
-const tienda_basico = require("../../mock/tienda_basico.json");
 const path = require("path");
 const XLSX = require("xlsx");
 
@@ -12,24 +11,26 @@ const XLSX = require("xlsx");
 const serverController = {
 
   // =============== MIO ====================
-  productos_exel1: (_require, response) => {
+// Nota: Forma optima de parsear los datos para la tienda
+  productos_exel_final: (_require, response) => {
     try {
-      const dataProductos = parse();
+      const dataProductos = tienda360Function();
       response.json(dataProductos);
     } catch (error) {
-      console.log(error)
       response.json(error);
     }
   },
-  productos_exel2: (_require, response) => {
+
+// Nota: Segunda Forma de parsear los datos para la tienda
+  productos_exel_alternativo: (_require, response) => {
     try {
-      const dataProductos = parseExel2();
+      const dataProductos = tienda2Function();
       response.json(dataProductos);
     } catch (error) {
-      console.log(error)
       response.json(error);
     }
   },
+
   productos_json: (_require, response) => {
     const dataProductos = tienda_json;
     response.json(dataProductos);
@@ -77,86 +78,48 @@ const serverController = {
 };
 
 
-const parse = () => {
-  const excelData = XLSX.readFile(path.join(process.cwd() + "/src/data/tienda360_3.xlsx")); 
-  const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
-      name,
-      data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
-  }))
 
-const categories = parseExcelData.map( res => res.data.map( res => res.category )).join(',').split(',');
-const subcategories = parseExcelData.map( res => res.data.map( res => res.subcategory )).join(',').split(',');;
+const tienda2Function = () => {
 
-const categoriesFilter = categories.filter( (data, i) => categories.indexOf(data) === i );
-const subcategoriesFilter = subcategories.filter( (data, i) => subcategories.indexOf(data) === i );
-
-
-console.log(categoriesFilter)
-console.log(subcategoriesFilter)
-
-  return parseExcelData[2].data;
-}
-// const parse = () => {
-//     // const excelData = XLSX.readFile(path.join(__dirname, "../data/tienda360.xlsx"));
-//     const excelData = XLSX.readFile(path.join(process.cwd() + "../data/tienda360.xlsx"));
-//     const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
-//         name,
-//         data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
-//     }))
-
-//     return parseExcelData[0].data;
-// }
-
-const parseExel2 = () => {
+  // Nota: Forma 1 de consumir el exel (mejor ya que se evita el problema del path para encontrar el file exel)
   const excelData = XLSX.readFile(path.join(process.cwd() + "/src/data/tienda360_3.xlsx"));
   const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
       name,
       data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
   }))
 
-  // console.log(parseExcelData[0].data);
+  // Nota: Forma 2 de consumir el exel
+  // const parse = () => {
+  //     // const excelData = XLSX.readFile(path.join(__dirname, "../data/tienda360.xlsx"));
+  //     const excelData = XLSX.readFile(path.join(process.cwd() + "../data/tienda360.xlsx"));
+  //     const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
+  //         name,
+  //         data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
+  //     }))
+
+  //     return parseExcelData[0].data;
+  // }
 
 
-
-  // const data4 = data3.map( (data) => {
-  //   return { 
-  //     category: data.category_name,
-  //     data: [
-  //       data.subcategories.map((info) => {
-  //         return { 
-  //          subcategory: info,
-  //          products: []
-  //         }
-  //       }) 
-  //     ]
-  //   };
-  // })
-
-  let array1 = [];
-  let array2 = [];
-
-  const dulces = parseExcelData[0].data
-  const data10 = parseExcelData.map( (response) => {
-    response.data.reduce( (acc, data) => {
-      return acc = acc.push(data.category)
-      // {
-      //   category: array1.push(data.category),
-      //   subcategory: array2.push(data.subcategory),
-      // }
-    })
-    
-  })
-  console.log(data10);
-
-  const dulcesData = dulces.map( (data) => data.subcategory)
-  const dulcesSubcategories = dulcesData.filter( (data, i) => dulcesData.indexOf(data) === i );
-
-  const dulcesParse = dulcesSubcategories.map( (data) => {
+  // Nota: extraemos las categorias
+  const categories = parseExcelData.map( res => res.data.map( res => res.category )).join(',').split(',');
+  const subcategories = parseExcelData.map( res => res.data.map( res => res.subcategory )).join(',').split(',');
+  const categoriesFilter = categories.filter( (data, i) => categories.indexOf(data) === i );
+  const subcategoriesFilter = subcategories.filter( (data, i) => subcategories.indexOf(data) === i );
+  
+  // Nota: unimos las diferentes pestañas de exel en un solo arreglo
+  const tienda360 = parseExcelData.map( (response) => response.data)
+                                  .reduce( (acc, data) => acc.concat(data))
+  
+ 
+  // Nota: parseamos las subcategorias
+  const subcategoriesParse = subcategoriesFilter.map( (data) => {
     return {
       subcategory: data,
-      products: dulces.filter( (response) => data === response.subcategory )
+      products: tienda360.filter( (response) => data === response.subcategory )
                       .map( (response) => {
                         return {
+                          category: response.category,
                           id: response.id,
                           name: response.name,
                           value: response.value,
@@ -164,56 +127,79 @@ const parseExel2 = () => {
                       })
     }
   })
-  
-  const tienda1 = {
-    "result": [
-      {
-        "category": "ABARROTES",
-        "data": [
-          {
-            "subcategory": "Fideos",
-            "products": parseExcelData[0].data
-          },
-          {
-            "subcategory": "Atunes",
-            "products": [{"name": "florida filete", "value": 6}, {"name": "atun AZ", "value": 3.50}]
-          }
-        ] 
-      },
-      {
-        "category": "DULCES",
-        "data": [
-          {
-            "subcategory": "Galletas",
-            "products": [{"name": "rellenitas", "value": 0.50}, {"name": "tentacion", "value": "0.70"}]
-          },
-          {
-            "subcategory": "Chocolates",
-            "products": [{"name": "princesa", "value": "1.50"}, {"name": "cañonazo", "value": "0.80"}]
-          }
-        ] 
-      },
-      {
-        "category": "BEBIDAS",
-        "data": [
-          {
-            "subcategory": "Gaseosas",
-            "products": [{"name": "pepsi jumbo", "value": 2.50}, {"name": "pepsi chico", "value": "1.80"}]
-          },
-          {
-            "subcategory": "Yogurt",
-            "products": [{"name": "gloria chico", "value": "1.50"}, {"name": "gloria 1/2 litro", "value": "3.50"}]
-          }
-        ] 
-      }
-    ]
-  }
-  
 
-  return dulcesParse;
+  // Nota: parseamos las categorias y la unimos con las subcategorias anteriormente parseadas
+  const categoriesParse = categoriesFilter.map( (data) => {
+    return {
+      category: data,
+      data: subcategoriesParse.filter( (response) => data === response.products[0].category )
+                      .map( (response) => {
+                        return {
+                          subcategory: response.subcategory,
+                          products: response.products.map( res => {
+                            return {
+                              id: res.id,
+                              name: res.name,
+                              value: res.value,
+                            }
+                          }),
+                        }
+                      })
+    }
+  })
+
+  
+  return categoriesParse;
 }
 
 
+const tienda360Function = () => {
+
+  const excelData = XLSX.readFile(path.join(process.cwd() + "/src/data/tienda360_3.xlsx"));
+  const parseExcelData = Object.keys(excelData.Sheets).map((name) => ({
+      name,
+      data: XLSX.utils.sheet_to_json(excelData.Sheets[name]),
+  }))
+  // Nota: extraemos las categorias
+  const categories = parseExcelData.map( res => res.data.map( res => res.category )).join(',').split(',');
+  const categoriesFilter = categories.filter( (data, i) => categories.indexOf(data) === i );
+  
+  // Nota: unimos las diferentes pestañas de exel en un solo arreglo
+  const tienda360 = parseExcelData.map( (response) => response.data)
+                                  .reduce( (acc, data) => acc.concat(data));
+
+
+  const categoriesParse = (subcategoriesArray) => {
+    // Nota: extraemos las subcategorias
+    const subcategories = subcategoriesArray.map( res => res.subcategory ).join(',').split(',');
+    const subcategoriesFilter = subcategories.filter( (data, i) => subcategories.indexOf(data) === i );
+
+    const subcategoryArray = subcategoriesFilter.map( (subcategory) => {
+      return {
+        subcategory: subcategory,
+        products: subcategoriesArray.filter( (response) => subcategory === response.subcategory )
+                        .map( (product) => {
+                          return {
+                            id: product.id,
+                            name: product.name,
+                            value: product.value,
+                          }
+                        })
+      }
+    })  
+    return subcategoryArray;  
+  }
+
+
+  const tiendaProductsParse = categoriesFilter.map( (category) => {
+    return {
+      category: category,
+      data: categoriesParse(tienda360.filter( (response) => category === response.category ))
+    }
+  })
+
+  return tiendaProductsParse;
+}
 
 
 module.exports = { serverController };
