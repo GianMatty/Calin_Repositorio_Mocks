@@ -1,5 +1,7 @@
 [DULCES, BEBIDAS, ASEO PERSONAL]
 [ Galletas, Chocolates, Dulces, Gaseosas, Mineral, Frugos, Jabones, Shampoos]
+
+
 DULCES
     GALLETAS
     CHOCOLATES
@@ -10,6 +12,8 @@ BEBIDAS
     GASEOSAS
     MINERAL
     FRUGOS
+    YOGURT
+    OTROS
 VERDURAS
     VERDURAS
     ESPECERIAS
@@ -35,7 +39,7 @@ ABARROTES
     ARROZ
     AZUCAR
     ATUNES
-    (cafe,milo,etc)
+    CAFES(cafe,milo,etc)
     COMIDA DE ANIMAL
     BOLSAS Y PLASTICOS
     OTROS (mantequilla, mermelada, etc)
