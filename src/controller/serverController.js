@@ -28,7 +28,8 @@ const serverController = {
 // Nota: Segunda Forma de parsear los datos para la tienda
   productos_exel_alternativo: (_require, response) => {
     try {
-      const dataProductos = tienda2Function();
+      const exelPath = "/src/data/tienda360.xlsx";
+      const dataProductos = tienda2Function(exelPath);
       response.json(dataProductos);
     } catch (error) {
       response.json(error);
@@ -118,9 +119,8 @@ const extraerInfoExcel = (excelPath) => {
   return parseExcelData;
 };
 
-const tienda2Function = () => {
+const tienda2Function = (excelPath) => {
 
-  const excelPath = "/src/data/tienda360_3.xlsx";
   const parseExcelData = extraerInfoExcel(excelPath);
 
   // Nota: extraemos las categorias
@@ -219,49 +219,10 @@ const tienda360Function = (excelPath) => {
   return tiendaProductsParse;
 }
 
+
 const tienda360FunctionResumen = (excelPath) => {
 
   const excelData = extraerInfoExcel(excelPath);
-
-  // // Nota: extraemos las categorias
-  // const categories = excelData.map( res => res.data.map( res => res.category )).join(',').split(',');
-  // const categoriesFilter = categories.filter( (data, i) => categories.indexOf(data) === i );
-  
-  // // Nota: unimos las diferentes pestañas de exel en un solo arreglo
-  // const tienda360 = excelData.map( (response) => response.data)
-  //                                 .reduce( (acc, data) => acc.concat(data));
-
-
-  // const categoriesParse = (subcategoriesArray) => {
-  //   // Nota: extraemos las subcategorias
-  //   const subcategories = subcategoriesArray.map( res => res.subcategory ).join(',').split(',');
-  //   const subcategoriesFilter = subcategories.filter( (data, i) => subcategories.indexOf(data) === i );
-
-  //   const subcategoryArray = subcategoriesFilter.map( (subcategory) => {
-  //     return {
-  //       subcategory: subcategory,
-  //       products: subcategoriesArray.filter( (response) => subcategory === response.subcategory )
-  //                       .map( (product) => {
-  //                         return {
-  //                           elemento: product.elemento,
-  //                           id: product.id,
-  //                           name: product.name,
-  //                           value: product.value,
-  //                         }
-  //                       })
-  //     }
-  //   })  
-  //   return subcategoryArray;  
-  // }
-
-  // const tiendaProductsParse = categoriesFilter.map( (category) => {
-  //   return {
-  //     category: category,
-  //     data: categoriesParse(tienda360.filter( (response) => category === response.category ))
-  //   }
-  // })
-
-  // return tiendaProductsParse;
   return excelData[0].data;
 }
 
