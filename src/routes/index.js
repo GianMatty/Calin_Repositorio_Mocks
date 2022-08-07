@@ -5,6 +5,7 @@ const api = express.Router();
 
 api.get("/productos_exel_final", serverController.productos_exel_final);
 api.get("/productos_exel_alternativo", serverController.productos_exel_alternativo);
+api.get("/productos_exel_resumen", serverController.productos_exel_resumen);
 api.get("/productos_array", serverController.productos_array);
 api.get("/productos_json", serverController.productos_json);
 
